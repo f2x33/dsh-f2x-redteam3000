@@ -1,6 +1,6 @@
 {
   "name": "dsh-f2x-redteam3000",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Twelve selectable red-team agent modes for DeepSeek Harness: one dispatcher plus eleven specialists, each carrying a staged engagement ledger, stage gates, a shared experience store and OT write-confirmation. Built on the MIT-licensed dsh-redteam-model and dsh-redteam-mode projects (modes, playbooks and knowledge trees), extended with this project's layer. Authorized testing only.",
   "type": "module",
   "main": "lib/index.mjs",

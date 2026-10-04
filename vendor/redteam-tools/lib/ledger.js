@@ -1,14 +1,8 @@
 /**
- * The ledger subset: only the `redteam_*` tools that this package's published skills
- * actually reference, plus the read companions that make the ledger usable.
- *
- * Why not all 53: tool schemas are context that every turn pays for. The full set stays
- * available to `rt-drill` (its sub-agents write to the store through tools its persona
- * never names); every other mode mounts this file instead.
- *
- * The list is derived, not guessed: every name below appears in a `SKILL.md` that a mode
- * actually sees, or is the read side of one that does. `node scripts/check-tool-subsets.mjs`
- * re-derives it and fails when a mounted mode loses a tool its own skills reference.
+ * The `redteam_*` tool subset mounted by every mode except `rt-drill`: the names this
+ * package's published skills reference, plus the read companions that keep the ledger
+ * usable. `scripts/check-tool-subsets.mjs` re-derives the list and fails when a mode
+ * loses a tool its own skills reference.
  */
 export const name = 'redteam-tools-ledger'
 export const inject = ['redteam', 'tools']

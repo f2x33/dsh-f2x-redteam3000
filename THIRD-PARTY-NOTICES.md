@@ -20,7 +20,7 @@
 | 版权 | Copyright (c) 2026 Jueze-2019 |
 | 许可 | MIT |
 | 分发的形式 | **原样 vendored**（把源码复制进本仓库的 `vendor/` 下，未作为依赖安装） |
-| 本项目对其的修改 | ① **挂载方式适配**（未改上游源文件）：上游把 asset store 与 tool set 作为同一条预设行挂载；本项目把 store 留在宿主平面（`ctx.provide('redteam')` 每进程只能注册一次）、把工具行按模式挂载，并为工具包新增 `./vendor/*` 子路径导出以便从预设解析。② **`vendor/redteam-tools/lib/index.js` 有代码修改**（2026-10-05，为降低每轮上下文）：拆出 `applySubset(ctx, allowlist)`，把 53 个工具的注册改为走 allowlist；新增 `lib/ledger.js` 只注册 42 个（11 个模式挂子集，`rt-drill` 仍挂全量 53）；并压缩了 35 条工具/参数说明文案。**未改动任何 `name`/`type`/`required`/`enum` 与参数嵌套结构**（可用结构 diff 复核）。 |
+| 本项目对其的修改 | ① **挂载方式适配**（未改上游源文件）：上游把 asset store 与 tool set 作为同一条预设行挂载；本项目把 store 留在宿主平面（`ctx.provide('redteam')` 每进程只能注册一次）、把工具行按模式挂载，并为工具包新增 `./vendor/*` 子路径导出以便从预设解析。② **`vendor/redteam-tools/lib/index.js` 有代码修改**：拆出 `applySubset(ctx, allowlist)`，把 53 个工具的注册改为走 allowlist；新增 `lib/ledger.js` 只注册 42 个（11 个模式挂子集，`rt-drill` 仍挂全量 53）；并压缩了 35 条工具/参数说明文案。**未改动任何 `name`/`type`/`required`/`enum` 与参数嵌套结构**（可用结构 diff 复核）。 |
 | 许可全文 | `vendor/redteam-store/LICENSE`、`vendor/redteam-tools/LICENSE`（若上游未附，见上游仓库） |
 
 ### 1.2 移植的模式与预设（`presets/redteam-modes/*`）
@@ -31,7 +31,7 @@
 | 版权 | Copyright (c) 2026 SeaOf0；Copyright (c) 2026 Jueze-2019 |
 | 许可 | MIT |
 | 分发的形式 | **改编/移植**：由 `scripts/port-redteam-modes.mjs` 与 `scripts/port-redteam-mode-preset.mjs` 从上游 `modes/` 与 `preset/agent.cordis.yml` 生成 |
-| 本项目对其的修改 | ① 行形状改为 DSH 0.2.x 的 `@deepseek-ai/dsh-agent-preset` 预设行；② 技能根改为本项目布局；③ 剔除上游引用的外来插件行；④ **追加本项目的层**（`f2x-orchestrate` 工具行、技能根、模式定位说明 `suffix`）；⑤ `rt-drill` 由 `port-redteam-mode-preset.mjs` 生成，并**替换**了上游的 `redteam-tools` 行为本仓库 vendored 的工具行；⑥ 为发布合规**移除了两棵第三方参考树**（见 §3）；⑦ `vendor/redteam-tools/lib/index.js` 增加 `applySubset()` 按 allowlist 注册、新增 `lib/ledger.js`——11 个模式只挂 42/53 个台账工具，`rt-drill` 仍挂全量（其子智能体要用编排与写入类）；⑧ 压缩了工具与参数的说明文案（**不改动任何 `name`/`type`/`required`/`enum` 与嵌套结构**，可用结构 diff 复核）。 |
+| 本项目对其的修改 | ① 行形状改为 DSH 0.2.x 的 `@deepseek-ai/dsh-agent-preset` 预设行；② 技能根改为本项目布局；③ 剔除上游引用的外来插件行；④ **追加本项目的层**（`f2x-orchestrate` 工具行、技能根、模式定位说明 `suffix`）；⑤ `rt-drill` 由 `port-redteam-mode-preset.mjs` 生成，并**替换**了上游的 `redteam-tools` 行为本仓库 vendored 的工具行；⑥ 为发布合规**移除了两棵第三方参考树**（见 §3）。`vendor/redteam-tools` 的改动见 §1.1。 |
 | 上游原文 | 未随包分发；如需对照请从上游仓库获取 |
 
 ### 1.3 CTF 参考知识库（`presets/redteam-modes/ctf-solver/refs`，约 3.0 MB / 126 文件）
@@ -77,7 +77,7 @@
   `code-audit/refs/README.md`（索引行与已移除内容的说明）
 - `vendor/reverse-skills/attack-chain/SKILL.md`（§七 痕迹清理 → 防守方可见性）
 - `vendor/redteam-skills/frp-tunnel/SKILL.md`（授权句改写）
-- 另有 **34 个 `SKILL.md` 只压缩了 frontmatter 的 `description`**（正文一字未动）：11 个移植模式的 playbook、`shared/skills/` 的 4 个，以及 `vendor/reverse-skills/` 的 22 个。目的是降低每轮注入的技能目录体积（总调会话实测 6798 → 3041 字符），判据关键词全部保留。
+- 另有 **34 个 `SKILL.md` 只压缩了 frontmatter 的 `description`**（正文一字未动）：11 个移植模式的 playbook、`shared/skills/` 的 4 个，以及 `vendor/reverse-skills/` 的 22 个；判据关键词全部保留。
   逐字节命中的分母不变、分子相应减少：`vendor/reverse-skills/` 137→115、`presets/redteam-modes/` 1096→1084。
 
 > 上面的数字可用 `node scripts/provenance-content.mjs --upstream <上游检出>` 复现。

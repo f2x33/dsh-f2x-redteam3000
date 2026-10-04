@@ -2,13 +2,8 @@
 /**
  * Fail when a preset mounts fewer `redteam_*` tools than its own skills reference.
  *
- * Why this exists: every tool schema is context paid for on every turn, so this package
- * mounts a *subset* of the 53 ledger tools (`vendor/redteam-tools/lib/ledger.js`) in all
- * modes except `rt-drill`, which keeps the full set because its sub-agents write to the
- * store through tools its own persona never names. That makes "which tools may I drop?"
- * an evidence question — and this is the evidence check.
- *
- * It re-derives, for every preset:
+ * Every mode except `rt-drill` mounts a subset of the 53 ledger tools
+ * (`vendor/redteam-tools/lib/ledger.js`); this check re-derives, for every preset:
  *   · mounted  = tools the preset's plugin row actually registers
  *   · needed   = `redteam_*` names that appear in the SKILL.md files the mode can see
  * and fails when `needed` is not a subset of `mounted`.

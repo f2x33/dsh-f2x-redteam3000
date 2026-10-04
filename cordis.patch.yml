@@ -243,9 +243,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
               enablePowerModule: true
@@ -775,9 +773,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/attack-defense.patch.yml
@@ -1173,9 +1169,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/av-evasion.patch.yml
@@ -1558,9 +1552,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/binary-analysis.patch.yml
@@ -1954,9 +1946,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/cloud-security.patch.yml
@@ -2356,9 +2346,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/code-audit.patch.yml
@@ -2761,9 +2749,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/ctf-solver.patch.yml
@@ -3152,9 +3138,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/incident-response.patch.yml
@@ -3545,9 +3529,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/pentest.patch.yml
@@ -3967,9 +3949,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/redteam.patch.yml
@@ -4358,9 +4338,7 @@
               registerSkillProvider: false
               persistState: true
 
-          # 台账工具行：53 个 redteam_* 的**子集**（42 个 = 全部只读 + 被技能引用过的写入类）。
-          # 为什么不是全量：每个工具 schema 每轮都进上下文，而多数模式用不到那些编排/更新类。
-          # 全量 53 个只由 rt-drill 挂载（它的子智能体要用 role_prompt/score_* 等工具）。
+          # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
             name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/rt-drill.patch.yml
