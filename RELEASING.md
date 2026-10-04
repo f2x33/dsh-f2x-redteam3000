@@ -1,4 +1,4 @@
-# Releasing `dsh-f2x-redteam3000`
+# Releasing `@dsh-f2x/redteam3000`
 
 Every command below has been run against this repository. Nothing here is aspirational.
 
@@ -108,9 +108,9 @@ which would make this plugin unloadable the moment DSH 0.2.0 ships. See the note
 ## 4. Pack and verify the artefact
 
 ```sh
-rm -f dsh-f2x-redteam3000-*.tgz
+rm -f @dsh-f2x/redteam3000-*.tgz
 npm pack --ignore-scripts
-tar tzf dsh-f2x-redteam3000-*.tgz | head -50
+tar tzf @dsh-f2x/redteam3000-*.tgz | head -50
 ```
 
 Confirm the tarball contains `package/lib/`, `package/cordis.patch.yml` and
@@ -128,7 +128,7 @@ node --input-type=module -e "
 const { initializeProfileFromDefault } = await import('/usr/lib/node_modules/@deepseek-ai/dsh/lib/profile-boot.js')
 initializeProfileFromDefault('smoke','web','/tmp/f2x-smoke')"
 
-DSH_HOME=/tmp/f2x-smoke dsh plugin --profile smoke add "$PWD"/dsh-f2x-redteam3000-*.tgz
+DSH_HOME=/tmp/f2x-smoke dsh plugin --profile smoke add "$PWD"/@dsh-f2x/redteam3000-*.tgz
 DSH_HOME=/tmp/f2x-smoke node scripts/verify-presets.mjs smoke
 ```
 
@@ -159,13 +159,13 @@ Before you do, re-read the two standing constraints:
 ## 7. After publishing
 
 ```sh
-npm view dsh-f2x-redteam3000 version
+npm view @dsh-f2x/redteam3000 version
 ```
 
 Then, on a machine with a clean DSH install:
 
 ```sh
-dsh plugin --profile web add dsh-f2x-redteam3000
+dsh plugin --profile web add @dsh-f2x/redteam3000
 dsh web --port <port>
 ```
 

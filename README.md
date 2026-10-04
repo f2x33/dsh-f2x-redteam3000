@@ -1,4 +1,4 @@
-# dsh-f2x-redteam3000
+# @dsh-f2x/redteam3000
 
 > **本项目是为 [deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) 赋能的项目：先装好 deepseek-harness，再装本项目。**
 >
@@ -129,7 +129,7 @@ presets/dsh-0.2/            能源比赛模式的预设源
 ## 安装
 
 ```sh
-dsh plugin --profile web add dsh-f2x-redteam3000     # npm
+dsh plugin --profile web add @dsh-f2x/redteam3000     # npm
 # 或本地开发用：
 #   cd <checkout> && pnpm install && pnpm run build
 #   dsh plugin --profile web add link:<checkout>
@@ -168,10 +168,10 @@ DSH_HOME=<你的 dsh home> node scripts/verify-presets.mjs web
 ```sh
 export DSH_HOME=/tmp/dsh-f2x-scratch
 dsh plugin --profile web --from-default-profile web
-dsh plugin --profile web add dsh-f2x-redteam3000
+dsh plugin --profile web add @dsh-f2x/redteam3000
 ```
 
-卸载：`dsh plugin --profile web remove dsh-f2x-redteam3000`
+卸载：`dsh plugin --profile web remove @dsh-f2x/redteam3000`
 
 **与 `dsh-plugin-guide check` 的已知偏差**：它报 `manifest-peers` 失败，因为它要求 peer 范围
 **恰好等于**一个止于 `0.2.0` 之前的固定串；而 DSH 的实际门禁用
@@ -267,7 +267,7 @@ node scripts/release-check.mjs --pack      # 发布闸门（含法律文件与 c
 
 ## 许可
 
-[MIT License](LICENSE) © 2026 dsh-f2x-redteam3000 contributors。
+[MIT License](LICENSE) © 2026 @dsh-f2x/redteam3000 contributors。
 
 ### 关于本项目的性质（请读一下）
 

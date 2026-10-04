@@ -70,8 +70,8 @@ DSH_HOME=/tmp/fresh dsh rt --from-default-profile web --no-open
 cd /tmp/fresh/profiles/rt
 python3 - <<'PY'
 import json; m = json.load(open('package.json'))
-m['dependencies'] = {'dsh-f2x-redteam3000': 'file:/path/to/dsh-f2x-redteam3000-0.1.0.tgz'}
-m['dsh']['profile']['bundles'].append('dsh-f2x-redteam3000')
+m['dependencies'] = {'@dsh-f2x/redteam3000': 'file:/path/to/dsh-f2x-redteam3000-0.1.0.tgz'}
+m['dsh']['profile']['bundles'].append('@dsh-f2x/redteam3000')
 json.dump(m, open('package.json', 'w'), indent=2)
 PY
 DSH_HOME=/tmp/fresh dsh plugin --profile rt install

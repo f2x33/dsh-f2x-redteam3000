@@ -8,8 +8,8 @@ tmp/
 coverage/
 
 # 本地产物：每个版本都是新文件，不入库（发布走 npm / bundle）
-dsh-f2x-redteam3000-*.tgz
-dsh-f2x-redteam3000-*.tgz.sha256
+@dsh-f2x/redteam3000-*.tgz
+@dsh-f2x/redteam3000-*.tgz.sha256
 
 # 编辑器/系统
 .DS_Store

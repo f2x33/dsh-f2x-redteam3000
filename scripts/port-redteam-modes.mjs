@@ -109,7 +109,7 @@ export function skillRootsFor(mode, sourceText) {
 
 /** One `!!js` entry that resolves a bundled skill root from this package's location. */
 function skillRootExpression(root) {
-  return `- !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', ${root
+  return `- !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', ${root
     .split('/')
     .map((part) => `'${part}'`)
     .join(', ')}); } catch { return '' } })()"`
@@ -144,7 +144,7 @@ function packageRootSkillExpression(root) {
     .split('/')
     .map((part) => `'${part}'`)
     .join(', ')
-  return `- !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), ${parts}); } catch { return '' } })()"`
+  return `- !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), ${parts}); } catch { return '' } })()"`
 }
 
 /**
@@ -154,7 +154,7 @@ function packageRootSkillExpression(root) {
  * `presets/redteam-modes`, which is right for the ported assets and wrong here.
  */
 const F2X_SKILL_EXPRESSION =
-  `- !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"`
+  `- !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"`
 
 /** Replace the `customSkillDirs` block with package-resolved roots. */
 function rewriteSkillRoots(rows, roots, mode) {
@@ -188,7 +188,7 @@ function rewriteSkillRoots(rows, roots, mode) {
 const REALITY_SUFFIX = [
   '【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】',
   '',
-  '本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。',
+  '本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。',
   '',
   '可用（务必使用）：',
   '- `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /',
@@ -315,7 +315,7 @@ export function buildPreset(mode, index) {
     ``,
     `          # ── f2x layer: this plugin rides on the ported mode ──────────────────`,
     `          - id: f2x-redteam3000`,
-    `            name: 'dsh-f2x-redteam3000'`,
+    `            name: '@dsh-f2x/redteam3000'`,
     `            config:`,
     `              registerSkillProvider: false`,
     `              persistState: true`,

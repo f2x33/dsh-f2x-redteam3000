@@ -20,6 +20,7 @@
  */
 
 import { execFileSync } from 'node:child_process'
+import { createRequire } from 'node:module'
 import { mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
@@ -265,13 +266,65 @@ check('preset region is in sync', (() => {
   }
 })(), 'node scripts/sync-presets.mjs --check')
 
+// 4e. The overlay must survive a real YAML parse.
+//
+// This already shipped once: a plugin row was inserted between two keys of an existing
+// `config:` block, so the tail of that block ended up indented under a scalar and the host
+// refused the whole overlay ("bad indentation of a mapping entry"). Every other check here
+// passed — the preset region was in sync and the tarball was correct — because none of them
+// *parses* the overlay. Only a boot did, and by then the version was published.
+{
+  const overlay = readFileSync(join(packageRoot, 'cordis.patch.yml'), 'utf8')
+  let state = null
+  let detail = ''
+  try {
+    const YAML = createRequire(import.meta.url)('yaml')
+    YAML.parse(overlay, { customTags: [{ tag: 'tag:yaml.org,2002:js', resolve: (value) => value }] })
+    state = true
+    detail = 'yaml parser'
+  } catch (error) {
+    if (/Cannot find (module|package)/.test(String(error?.message ?? ''))) {
+      detail = 'yaml package not resolvable'
+    } else {
+      state = false
+      detail = String(error?.message ?? error).split('\n')[0].slice(0, 160)
+    }
+  }
+  if (state === null) {
+    // No parser on this machine: look for the structural symptom of the same defect — a
+    // mapping entry indented under a key whose value is already a scalar.
+    const lines = overlay.split('\n')
+    const orphans = []
+    for (let i = 1; i < lines.length; i += 1) {
+      const line = lines[i]
+      if (line.trim() === '' || line.trimStart().startsWith('#')) continue
+      const indent = line.length - line.trimStart().length
+      let j = i - 1
+      while (j >= 0 && (lines[j].trim() === '' || lines[j].trimStart().startsWith('#'))) j -= 1
+      if (j < 0) continue
+      const parent = lines[j].trim()
+      const scalar = /^[^:#][^:]*:\s+\S+$/.test(parent) && !/[|>][-+]?$/.test(parent)
+      if (indent > lines[j].length - lines[j].trimStart().length && scalar) {
+        orphans.push(`${String(i + 1)}: ${line.trim().slice(0, 40)}`)
+      }
+    }
+    check('overlay keeps every mapping key attached', orphans.length === 0,
+      orphans.length === 0 ? `structural fallback (${detail})` : orphans.slice(0, 3).join(', '))
+  } else {
+    check('overlay parses with a real YAML parser', state, detail)
+  }
+}
+
 // 5. Optional: build and look inside the artefact.
 if (pack) {
   // Pack into a temp directory. `pnpm pack` with no destination writes the tarball into the
   // repository root, overwriting whatever was there — an audit that runs this check then finds
   // the artefact changed underneath it, and a stale tarball can silently be shipped.
   const staging = mkdtempSync(join(tmpdir(), 'f2x-pack-'))
-  const tgz = join(staging, `${manifest.name}-${manifest.version}.tgz`)
+  // A scoped package packs to `<scope>-<name>-<version>.tgz` (the `@` and the `/` are dropped):
+  // `@dsh-f2x/redteam3000` → `dsh-f2x-redteam3000-0.1.9.tgz`.
+  const packedName = `${manifest.name.replace(/^@/, '').replace('/', '-')}-${manifest.version}.tgz`
+  const tgz = join(staging, packedName)
   try {
     execFileSync('pnpm', ['pack', '--pack-destination', staging], { cwd: packageRoot, stdio: 'pipe' })
     const listing = execFileSync('tar', ['tzf', tgz], { encoding: 'utf8' }).split('\n').filter(Boolean)

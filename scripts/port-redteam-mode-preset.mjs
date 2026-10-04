@@ -73,13 +73,13 @@ export const VENDOR_ROWS = [
   '          # 与 group 子行，预设行的 name 落在 profile 目录解析——写相对路径',
   '          # 会指到不存在的文件，整条预设静默变 broken。',
   '          - id: f2x-rt-tools',
-  "            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/index.js'",
+  "            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/index.js'",
 ]
 
 export const RELATION_SUFFIX = [
   '【本模式在本部署中的位置】',
   '',
-  '本模式是**执行层**，不是总入口。整个插件（dsh-f2x-redteam3000）的**总指挥/总调度**是',
+  '本模式是**执行层**，不是总入口。整个插件（@dsh-f2x/redteam3000）的**总指挥/总调度**是',
   '`redteam3000总调`（preset id `redteam`）：它负责判断任务类型、把任务派给专业模式、并汇总全局战果。',
   '',
   '在这里请专注做好**多角色演练的指挥执行**：',
@@ -180,7 +180,7 @@ export function buildPreset() {
     '',
     '          # ── f2x layer: this plugin rides on the ported mode ──────────────────',
     '          - id: f2x-redteam3000',
-    "            name: 'dsh-f2x-redteam3000'",
+    "            name: '@dsh-f2x/redteam3000'",
     '            config:',
     '              registerSkillProvider: false',
     '              persistState: true',

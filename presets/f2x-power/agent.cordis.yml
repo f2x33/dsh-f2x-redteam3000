@@ -119,7 +119,7 @@
 #   ② 每次交战经 f2x_orchestrate_start { allowlist: [...] } 临时声明
 # maxConcurrencyPerTarget 与写门禁一起构成 OT 纪律，不要为了图快调高。
 - id: f2x-redteam3000
-  name: 'dsh-f2x-redteam3000'
+  name: '@dsh-f2x/redteam3000'
   config:
     registerSkillProvider: false
     persistState: true

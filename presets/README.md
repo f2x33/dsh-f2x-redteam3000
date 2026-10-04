@@ -60,7 +60,7 @@
 `skill-filesystem` 的 `customSkillDirs` 用 `resolve(root)` 锚定 **cwd**，而 `!!js` 里的 `baseUrl` 在 0.2.0 行内格式下是 **profile 目录**，不是仓库目录。所以必须**从插件包位置解析**：
 
 ```js
-const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json')
+const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json')
 p.join(p.dirname(pk), 'skills')          // 通用技能
 p.join(p.dirname(pk), 'skills', 'power') // 电力技能
 ```
@@ -127,7 +127,7 @@ all 3 f2x preset(s) mount cleanly and are selectable.
 （`cordis.patch.yml` 末尾的标记区域），所以一条命令就够，模式随安装到位：
 
 ```bash
-dsh plugin --profile web add dsh-f2x-redteam3000
+dsh plugin --profile web add @dsh-f2x/redteam3000
 dsh web --port 3090                       # 重启后生效
 node scripts/verify-presets.mjs web       # 确认三个模式真的挂上了
 ```
@@ -160,7 +160,7 @@ node scripts/sync-presets.mjs --check  # 仅检查是否过期
 
 三个模式结构相同，差别在 persona、技能根和门禁强度：
 
-- **共用**：`persona`、`agent-instructions`、`tool-bash`/`tool-pwsh`、`tool-fs`、`tool-fs-search`、`tool-jobs`、`skill-filesystem`、`tool-skill`、`tool-todo`、`tool-web`，以及本插件 `dsh-f2x-redteam3000`。
+- **共用**：`persona`、`agent-instructions`、`tool-bash`/`tool-pwsh`、`tool-fs`、`tool-fs-search`、`tool-jobs`、`skill-filesystem`、`tool-skill`、`tool-todo`、`tool-web`，以及本插件 `@dsh-f2x/redteam3000`。
 - **插件行**统一设 `registerSkillProvider: false`——技能由上面的 `skill-filesystem` 按模式提供，避免同一批技能既进全局层又进模式层。
 - **`allowedTargets` 默认空 = 拒绝一切**，开工前必须用 `f2x_orchestrate_start` 的 `allowlist` 逐次声明授权范围。
 

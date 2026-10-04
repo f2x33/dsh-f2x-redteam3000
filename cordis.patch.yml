@@ -1,5 +1,5 @@
 # ============================================================================
-# dsh-f2x-redteam3000 — bundle patch layer
+# @dsh-f2x/redteam3000 — bundle patch layer
 # ============================================================================
 #
 # WHAT THIS FILE IS
@@ -64,7 +64,7 @@
 
 - insert:
     - id: f2x-redteam3000
-      name: 'dsh-f2x-redteam3000'
+      name: '@dsh-f2x/redteam3000'
       config:
         # The twelve presets each inject their own skill roots, so the host row must not
         # publish the OT skills globally: power/OT skills belong to the power preset only.
@@ -225,8 +225,8 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills', 'power'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills', 'power'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -238,16 +238,16 @@
           #   ② 每次交战经 f2x_orchestrate_start { allowlist: [...] } 临时声明
           # maxConcurrencyPerTarget 与写门禁一起构成 OT 纪律，不要为了图快调高。
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
+              enablePowerModule: true
+              maxConcurrencyPerTarget: 3
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
-              enablePowerModule: true
-              maxConcurrencyPerTarget: 3
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
           - id: command-goal
             name: '@deepseek-ai/dsh-command-goal'
           
@@ -424,7 +424,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -577,18 +577,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -768,14 +768,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/attack-defense.patch.yml
     - id: f2x-preset-attack-defense
       name: '@deepseek-ai/dsh-agent-preset'
@@ -840,7 +840,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -973,18 +973,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -1164,14 +1164,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/av-evasion.patch.yml
     - id: f2x-preset-av-evasion
       name: '@deepseek-ai/dsh-agent-preset'
@@ -1232,7 +1232,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -1361,18 +1361,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -1547,14 +1547,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/binary-analysis.patch.yml
     - id: f2x-preset-binary-analysis
       name: '@deepseek-ai/dsh-agent-preset'
@@ -1620,7 +1620,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -1754,19 +1754,19 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'vendor', 'reverse-skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'vendor', 'reverse-skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -1941,14 +1941,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/cloud-security.patch.yml
     - id: f2x-preset-cloud-security
       name: '@deepseek-ai/dsh-agent-preset'
@@ -2015,7 +2015,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -2150,18 +2150,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -2341,14 +2341,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/code-audit.patch.yml
     - id: f2x-preset-code-audit
       name: '@deepseek-ai/dsh-agent-preset'
@@ -2416,7 +2416,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -2552,19 +2552,19 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'vendor', 'reverse-skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'vendor', 'reverse-skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -2744,14 +2744,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/ctf-solver.patch.yml
     - id: f2x-preset-ctf-solver
       name: '@deepseek-ai/dsh-agent-preset'
@@ -2812,7 +2812,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -2941,19 +2941,19 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'vendor', 'reverse-skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'vendor', 'reverse-skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -3133,14 +3133,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/incident-response.patch.yml
     - id: f2x-preset-incident-response
       name: '@deepseek-ai/dsh-agent-preset'
@@ -3205,7 +3205,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -3338,18 +3338,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -3524,14 +3524,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/pentest.patch.yml
     - id: f2x-preset-pentest
       name: '@deepseek-ai/dsh-agent-preset'
@@ -3608,7 +3608,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -3753,18 +3753,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -3944,14 +3944,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/redteam.patch.yml
     - id: f2x-preset-redteam
       name: '@deepseek-ai/dsh-agent-preset'
@@ -4015,7 +4015,7 @@
               suffix: |-
                 【本环境工具现实 —— 开工前先读，与上文冲突时以本节为准】
 
-                本模式运行在 dsh-f2x-redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
+                本模式运行在 @dsh-f2x/redteam3000 之上。上文提到的工具与本环境实际提供的并不完全一致，按下列口径执行。
 
                 可用（务必使用）：
                 - `f2x_orchestrate_*`（12 个）：start / scope / status / switch / blackboard / checkpoint /
@@ -4147,18 +4147,18 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'redteam', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'pentest', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'code-audit', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'binary-analysis', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'attack-defense', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'av-evasion', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'incident-response', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'cloud-security', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'ctf-solver', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'asset-mapping', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'presets', 'redteam-modes', 'shared', 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); return p.join(p.dirname(pk), 'skills'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -4333,14 +4333,14 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
     # from presets/redteam-modes/rt-drill.patch.yml
     - id: f2x-preset-rt-drill
       name: '@deepseek-ai/dsh-agent-preset'
@@ -4442,7 +4442,7 @@
               suffix: |-
                 【本模式在本部署中的位置】
 
-                本模式是**执行层**，不是总入口。整个插件（dsh-f2x-redteam3000）的**总指挥/总调度**是
+                本模式是**执行层**，不是总入口。整个插件（@dsh-f2x/redteam3000）的**总指挥/总调度**是
                 `redteam3000总调`（preset id `redteam`）：它负责判断任务类型、把任务派给专业模式、并汇总全局战果。
 
                 在这里请专注做好**多角色演练的指挥执行**：
@@ -4698,7 +4698,7 @@
 
           # ── f2x layer: this plugin rides on the ported mode ──────────────────
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
@@ -4708,5 +4708,5 @@
           # 与 group 子行，预设行的 name 落在 profile 目录解析——写相对路径
           # 会指到不存在的文件，整条预设静默变 broken。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/index.js'
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/index.js'
 # <<< f2x preset layers <<<

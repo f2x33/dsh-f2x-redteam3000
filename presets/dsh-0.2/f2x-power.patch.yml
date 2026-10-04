@@ -126,8 +126,8 @@
             name: '@deepseek-ai/dsh-skill-filesystem'
             config:
               customSkillDirs:
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills'); } catch { return '' } })()"
-                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('dsh-f2x-redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills', 'power'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills'); } catch { return '' } })()"
+                - !!js "(() => { const m = process.getBuiltinModule('node:module'); const u = process.getBuiltinModule('node:url'); const p = process.getBuiltinModule('node:path'); try { const pk = m.createRequire(baseUrl).resolve('@dsh-f2x/redteam3000/package.json'); const b = p.dirname(pk); return p.join(b, 'skills', 'power'); } catch { return '' } })()"
 
           - id: tool-skill
             name: '@deepseek-ai/dsh-tool-skill'
@@ -139,16 +139,16 @@
           #   ② 每次交战经 f2x_orchestrate_start { allowlist: [...] } 临时声明
           # maxConcurrencyPerTarget 与写门禁一起构成 OT 纪律，不要为了图快调高。
           - id: f2x-redteam3000
-            name: 'dsh-f2x-redteam3000'
+            name: '@dsh-f2x/redteam3000'
             config:
               registerSkillProvider: false
               persistState: true
+              enablePowerModule: true
+              maxConcurrencyPerTarget: 3
 
           # 台账工具：按 lib/ledger.js 挂 42 个子集，全量 53 个仅 rt-drill 使用。
           - id: f2x-rt-tools
-            name: 'dsh-f2x-redteam3000/vendor/redteam-tools/lib/ledger.js'
-              enablePowerModule: true
-              maxConcurrencyPerTarget: 3
+            name: '@dsh-f2x/redteam3000/vendor/redteam-tools/lib/ledger.js'
           - id: command-goal
             name: '@deepseek-ai/dsh-command-goal'
           
