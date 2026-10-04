@@ -1,0 +1,117 @@
+{
+  "name": "dsh-f2x-redteam3000",
+  "version": "0.1.7",
+  "description": "Twelve selectable red-team agent modes for DeepSeek Harness: one dispatcher plus eleven specialists, each carrying a staged engagement ledger, stage gates, a shared experience store and OT write-confirmation. Built on the MIT-licensed dsh-redteam-model and dsh-redteam-mode projects (modes, playbooks and knowledge trees), extended with this project's layer. Authorized testing only.",
+  "type": "module",
+  "main": "lib/index.mjs",
+  "types": "lib/index.d.mts",
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "presets",
+    "persona",
+    "playbook",
+    "scripts",
+    "skills",
+    "refs",
+    "README.md",
+    "vendor",
+    "TESTING.md",
+    "RELEASING.md",
+    "LICENSE",
+    "NOTICE",
+    "DISCLAIMER.md",
+    "THIRD-PARTY-NOTICES.md",
+    "HOW-TO-VERIFY.md",
+    "AUDIT-FIXES.md",
+    "DELIVERY.md"
+  ],
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.2",
+    "@deepseek-ai/dsh-skill": ">=0.1.2-rc.1 <0.2.0 || >=0.2.0-0 <0.3.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0 || >=0.2.0-0 <0.3.0",
+    "@deepseek-ai/schemastery": "^3.18.2",
+    "@types/node": "^22.20.1",
+    "tsdown": "^0.22.14",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.2",
+    "@deepseek-ai/dsh-skill": ">=0.1.2-rc.1 <0.2.0 || >=0.2.0-0 <0.3.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0 || >=0.2.0-0 <0.3.0",
+    "@deepseek-ai/schemastery": "^3.18.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-skill": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "default": "./lib/index.mjs"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./skills": {
+      "default": "./lib/skills.mjs"
+    },
+    "./manager": {
+      "default": "./lib/manager.mjs"
+    },
+    "./package.json": "./package.json",
+    "./vendor/*": "./vendor/*"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "red-team",
+    "pentest",
+    "security",
+    "agent-preset",
+    "ics",
+    "ot",
+    "llm-security",
+    "mcp",
+    "ai-agent",
+    "experience-store"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "风二西",
+    "url": "https://github.com/f2x33"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/f2x33/dsh-f2x-redteam3000.git"
+  },
+  "homepage": "https://github.com/f2x33/dsh-f2x-redteam3000#readme",
+  "bugs": {
+    "url": "https://github.com/f2x33/dsh-f2x-redteam3000/issues"
+  },
+  "scripts": {
+    "build": "tsdown && node scripts/build-client.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

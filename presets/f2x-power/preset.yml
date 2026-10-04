@@ -1,0 +1,4 @@
+# Display metadata for the f2x-power preset.
+name: 'f2x 能源比赛（redteam3000）'
+description: '能源/工控四段式资产模型 + Modbus/S7comm/IEC61850/SCADA 技能 + OT 写门禁与审计；强制产出防守方检测视角。'
+order: 12

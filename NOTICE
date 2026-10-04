@@ -1,0 +1,66 @@
+dsh-f2x-redteam3000
+Copyright (c) 2026 dsh-f2x-redteam3000 contributors
+
+Licensed under the MIT License (see LICENSE).
+
+-------------------------------------------------------------------------------
+Nature of this project
+-------------------------------------------------------------------------------
+
+This package is primarily an INTEGRATION and ADAPTATION layer: it wires the
+MIT-licensed dsh-redteam-model and dsh-redteam-mode projects into DeepSeek
+Harness agent presets under a common tool prefix, and adds its own tooling
+(staged engagement ledger, stage gates, an experience store), skills and docs.
+
+A large part of the text, skill and preset content was produced with AI
+assistants and then reviewed, arranged and edited by the project's maintainer.
+Copyright in purely machine-generated portions may be uncertain; everything
+redistributed from the upstream projects listed below is MIT-licensed and its
+notices are retained. See THIRD-PARTY-NOTICES.md for the per-part provenance
+and the byte-level comparisons behind it.
+
+-------------------------------------------------------------------------------
+Usage terms
+-------------------------------------------------------------------------------
+
+Intended ONLY for authorized security testing, red-team exercises, CTF
+competitions, bug-bounty programs and security research. Use against systems you
+are not authorized to test may be a criminal offence. Provided "AS IS" without
+warranty; the authors accept no liability for misuse.
+
+See DISCLAIMER.md for the full usage terms, risk and liability statement.
+
+-------------------------------------------------------------------------------
+Third-party content redistributed here
+-------------------------------------------------------------------------------
+
+  · dsh-redteam-model v1.1.1            MIT   Copyright (c) 2026 SeaOf0
+        https://github.com/SeaOf0/dsh-redteam-model
+        ported agent modes (presets/*/*/skills, byte-identical content),
+        vendor/reverse-skills/reverse-engineering/ (136 files byte-identical,
+        including 6 scripts) and
+        knowledge trees (presets/*/*/refs, 1003 of 1005 byte-identical)
+  · dsh-redteam-mode                    MIT   Copyright (c) 2026 Jueze-2019
+        https://github.com/Jueze-2019/dsh-redteam-mode
+        vendor/redteam-store, vendor/redteam-tools, the rt-drill preset
+  · ljagiello/ctf-skills                MIT   Copyright (c) 2026 Lukasz Jagiello
+        https://github.com/ljagiello/ctf-skills
+        presets/redteam-modes/ctf-solver/refs
+  · MyuriKanao/src-hunter-skill         MIT   Copyright (c) 2026 MyuriKanao
+        https://github.com/MyuriKanao/src-hunter-skill
+        vendor/reverse-skills/pentest-tools/src-hunter
+  · PayloadsAllTheThings                MIT   Copyright (c) 2019 Swissky
+        https://github.com/swisskyrepo/PayloadsAllTheThings
+        exemplar payloads reproduced with attribution in the CTF reference index
+
+Their licence texts ship with the code (UPSTREAM-LICENSE-MIT-*.txt beside the
+relevant trees, plus the LICENSE files inside each vendored directory).
+
+-------------------------------------------------------------------------------
+Content deliberately NOT distributed with this package
+-------------------------------------------------------------------------------
+
+The semgrep open-source rule set (Commons Clause / AGPL-3.0) and the NOP Team
+Linux incident-response handbook (GPL-3.0) are excluded: their licences are not
+compatible with shipping this package as MIT. See THIRD-PARTY-NOTICES.md §3 for
+how to obtain them separately.
