@@ -48,6 +48,22 @@ function readJson(rel) {
   return JSON.parse(readFileSync(join(packageRoot, rel), 'utf8'))
 }
 
+/**
+ * 读实现文件：`src/` 优先（作者本地留着源码树时），否则退回随包发布的 `lib/`。
+ *
+ * 本仓库只提交 `lib/`，不再提交 `src/`。这些检查历史上写死 `src/...`，于是 selfcheck
+ * 一开场就 `ENOENT` 崩掉 —— **门禁从未真正执行过**，`PLUGIN_VERSION` 因此漂到 `0.1.0`
+ * 而无人发现（package.json 早已是 0.1.9）。找不到时返回 undefined，由调用点自己
+ * 记一条失败，而不是让整个脚本崩在第一个检查上。
+ */
+function readImplementation(...candidates) {
+  for (const rel of candidates) {
+    const abs = join(packageRoot, rel)
+    if (existsSync(abs)) return readFileSync(abs, 'utf8')
+  }
+  return undefined
+}
+
 /** Top-level loader ids inserted by a patch file. */
 function topLevelIds(text) {
   return [...text.matchAll(/^ {4}- id: (\S+)\s*$/gm)].map((m) => m[1])
@@ -114,8 +130,21 @@ function presetIds(text) {
 // ── 3. Every recommended capability is actually reachable ──────────────────
 // This is the check that would have caught the wrong-package-name defect.
 {
-  const manager = readFileSync(join(packageRoot, 'src/manager.ts'), 'utf8')
-  const block = manager.slice(manager.indexOf('export const RECOMMENDED'), manager.indexOf('export async function preflightSpecifier'))
+  const manager = readImplementation('src/manager.ts', 'lib/manager.mjs')
+  // 标记要容错：源码里是 `export const RECOMMENDED` / `export async function ...`，
+  // 构建产物里是 `const RECOMMENDED` / `function ...`（无 export、无 async）。
+  const start = manager === undefined ? -1 : manager.search(/(?:export\s+)?const RECOMMENDED\b/)
+  const end = manager === undefined ? -1 : manager.search(/(?:export\s+)?(?:async\s+)?function preflightSpecifier\b/)
+  record(
+    'manager RECOMMENDED block is locatable',
+    manager !== undefined && start >= 0 && end > start,
+    manager === undefined
+      ? 'neither src/manager.ts nor lib/manager.mjs exists'
+      : start < 0 || end <= start
+        ? 'could not find the RECOMMENDED … preflightSpecifier span'
+        : 'found',
+  )
+  const block = manager !== undefined && start >= 0 && end > start ? manager.slice(start, end) : ''
   const specifiers = [...block.matchAll(/specifier: '([^']+)'/g)].map((m) => m[1])
   // An empty list is the intended state: recommending more plugins works against this
   // plugin's actual problem (too much surface). Non-empty is allowed but every entry must
@@ -166,11 +195,13 @@ function presetIds(text) {
     )
     // The measured bug: react resolved through a second apply() argument the host never
     // passes, so the section was never registered and nothing was logged.
-    const source = readFileSync(join(packageRoot, 'src/client/index.ts'), 'utf8')
+    const source = readImplementation('src/client/index.ts', 'lib/client.js')
     record(
       'client apply() takes only ctx (react comes from the factory require)',
-      /export function apply\(ctx: SlotContext\): void/.test(source) && /require\("react"\)/.test(bundle),
-      'apply signature + static react require in the bundle',
+      source !== undefined && /apply\(ctx[:)]/.test(source) && /require\("react"\)/.test(bundle),
+      source === undefined
+        ? 'neither src/client/index.ts nor lib/client.js exists'
+        : 'apply signature + static react require in the bundle',
     )
   }
 }
@@ -300,14 +331,12 @@ function presetIds(text) {
   // Doc counts that drifted away from the code are worse than no count.
   const readme = readFileSync(join(packageRoot, 'README.md'), 'utf8')
   const claimedTests = /pnpm test\s+#\s*(\d+)\s*(?:tests|个测试)/.exec(readme)
-  const suite = readFileSync(join(packageRoot, 'tests', 'integration.test.ts'), 'utf8')
   record(
     'README test count is not stale',
     claimedTests !== null && Number(claimedTests[1]) > 100,
     claimedTests === null ? 'README states no test count' : `README claims ${claimedTests[1]} tests`,
     'WARN',
   )
-  void suite
 
   // The release instructions must not pin one machine's port either.
   const releasing = readFileSync(join(packageRoot, 'RELEASING.md'), 'utf8')
@@ -327,8 +356,10 @@ function presetIds(text) {
 {
   const patch = readFileSync(join(packageRoot, 'cordis.patch.yml'), 'utf8')
   const modeRows = (patch.match(/^\s*- id: f2x-preset-/gm) ?? []).length
-  const toolNames = [...readFileSync(join(packageRoot, 'src/index.ts'), 'utf8')
-    .matchAll(/name: '(f2x_[a-z_]+)'/g)].map((m) => m[1])
+  // 构建产物用双引号（`name: "f2x_orchestrate_start"`），源码用单引号 —— 两种都要认，
+  // 否则从 lib/ 读出来是 0 个工具，本检查会拿错误的数字去比 README。
+  const indexText = readImplementation('src/index.ts', 'lib/index.mjs') ?? ''
+  const toolNames = [...indexText.matchAll(/name: ['"](f2x_[a-z_]+)['"]/g)].map((m) => m[1])
   const orchestrate = toolNames.filter((n) => n.startsWith('f2x_orchestrate_')).length
   const experience = toolNames.filter((n) => n.startsWith('f2x_exp')).length
 
@@ -356,6 +387,34 @@ function presetIds(text) {
       problems.length === 0
         ? `${String(modeRows)} presets, ${String(orchestrate)}+${String(experience)} tools, ${licence}`
         : problems.slice(0, 3).join('; '),
+    )
+  }
+}
+
+// ── 7d. Reported version matches the manifest ─────────────────────────────
+// `PLUGIN_VERSION` is what the doctrine self-check and the console print to an operator,
+// so a wrong value misreports the artifact being audited. The comment beside it claimed
+// "kept in step with package.json by a test"; this repository had no test files at all,
+// and the value had drifted a full minor line (0.1.0 while package.json said 0.1.9).
+{
+  const manifest = readJson('package.json').version
+  const indexText = readImplementation('src/index.ts', 'lib/index.mjs') ?? ''
+  const declared = /const PLUGIN_VERSION = ['"]([^'"]+)['"]/.exec(indexText)?.[1]
+  record(
+    'PLUGIN_VERSION matches package.json',
+    declared !== undefined && declared === manifest,
+    declared === undefined
+      ? 'no PLUGIN_VERSION const in src/index.ts or lib/index.mjs'
+      : `PLUGIN_VERSION=${declared}, package.json=${manifest}`,
+  )
+  // 类型声明里的字面量也要跟着走，否则 TS 侧仍在广播旧版本。
+  const declarations = readImplementation('src/index.d.ts', 'lib/index.d.mts')
+  if (declarations !== undefined) {
+    const ok = new RegExp(`declare const PLUGIN_VERSION = ['"]${manifest.replace(/\./g, '\\.')}['"]`).test(declarations)
+    record(
+      'the .d.mts declaration names the same version',
+      ok,
+      ok ? `"${manifest}"` : 'declaration still names a different version',
     )
   }
 }

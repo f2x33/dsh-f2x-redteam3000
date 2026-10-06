@@ -135,8 +135,8 @@ type BlackboardKind = 'fact' | 'intent' | 'hint';
 //#region src/index.d.ts
 declare const name = "@dsh-f2x/redteam3000";
 declare const inject: string[];
-/** Plugin version reported by the doctrine self-check and the console. Kept in step with package.json by a test. */
-declare const PLUGIN_VERSION = "0.1.0";
+/** Plugin version reported by the doctrine self-check and the console. Kept in step with package.json by `scripts/selfcheck.mjs`. */
+declare const PLUGIN_VERSION = "0.1.9";
 /**
  * Route prefix of the read-only operator console.
  *
